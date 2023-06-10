@@ -25,3 +25,4 @@ Route::get('/logout', function () {
 
 Route::get('/', [ProductController::class, 'index']);
 Route::get('detail/{id}', [ProductController::class, 'detail']);
+Route::get('search', [ProductController::class, 'search']);
