@@ -10,10 +10,11 @@ class ProductController extends Controller
     public function index()
     {
         $data = Product::all();
-        // echo "<pre>";
-        // print_r($data);
-        // echo "</pre>";
-
         return view('product',['products'=>$data]);
+    }
+    public function detail($id)
+    {
+        $data = Product::find($id);
+        return view('detail', ['product'=>$data]);
     }
 }
