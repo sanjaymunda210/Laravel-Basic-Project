@@ -16,12 +16,12 @@ class ProductController extends Controller
         $data = Product::all();
         return view('product',['products'=>$data]);
     }
-    public function detail($id)
+    function detail($id)
     {
         $data = Product::find($id);
         return view('detail', ['product'=>$data]);
     }
-    public function search(Request $req)
+    function search(Request $req)
     {
         $data =Product::where('name', 'like', '%'.$req->input('query').'%')->get();
         return view('search', ['products'=>$data]);
@@ -44,5 +44,11 @@ class ProductController extends Controller
     {
      $userId=Session::get('user')['id'];
      return Cart::where('user_id',$userId)->count();
+    }
+    function cartList()
+    {
+        $userID = Session::get('user')['id'];
+        $products = DB::table('cart')->join('products', 'cart.product_id', '=', 'products.id')->where('cart.user_id', $userID)->select('products.*', 'cart.id as cart_id')->get();
+        return view('cartlist', ['products'=>$products]);
     }
 }
